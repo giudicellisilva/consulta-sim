@@ -1,0 +1,1832 @@
+Started GET "/" for 127.0.0.1 at 2023-06-19 16:17:06 -0300
+  [1m[35m (2.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 3.4ms | Allocations: 658)
+Completed 200 OK in 39ms (Views: 15.3ms | ActiveRecord: 0.0ms | Allocations: 5122)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 16:17:09 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 323)
+Completed 200 OK in 6ms (Views: 3.4ms | ActiveRecord: 0.0ms | Allocations: 1051)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (46.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (33.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePacientes (20230619191826)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "pacientes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "data" date, "cpf" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230619191826"]]
+  [1m[36mTRANSACTION (24.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateEnderecos (20230619192005)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "enderecos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cep" varchar, "cidade" varchar, "bairro" varchar, "logradouro" varchar, "complemento" varchar, "paciente_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_c05557f98d"
+FOREIGN KEY ("paciente_id")
+  REFERENCES "pacientes" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_enderecos_on_paciente_id" ON "enderecos" ("paciente_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230619192005"]]
+  [1m[36mTRANSACTION (26.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateMedicos (20230619192242)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "medicos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "cpf" varchar, "email" varchar, "especialidade" varchar, "CRM" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230619192242"]]
+  [1m[36mTRANSACTION (28.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateConsulta (20230619193007)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "consulta" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "data" date, "horario" time, "medico_id" integer NOT NULL, "paciente_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_2eeeecd976"
+FOREIGN KEY ("medico_id")
+  REFERENCES "medicos" ("id")
+, CONSTRAINT "fk_rails_99e75a4b64"
+FOREIGN KEY ("paciente_id")
+  REFERENCES "pacientes" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_consulta_on_medico_id" ON "consulta" ("medico_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_consulta_on_paciente_id" ON "consulta" ("paciente_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230619193007"]]
+  [1m[36mTRANSACTION (36.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-06-19 19:30:22.252056"], ["updated_at", "2023-06-19 19:30:22.252056"]]
+  [1m[36mTRANSACTION (17.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2023-06-19 16:30:41 -0300
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 550)
+Completed 200 OK in 7ms (Views: 2.3ms | ActiveRecord: 0.0ms | Allocations: 3826)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:30:46 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 6.1ms | Allocations: 1389)
+  Rendered layout layouts/application.html.erb (Duration: 469.6ms | Allocations: 88404)
+Completed 200 OK in 484ms (Views: 477.8ms | ActiveRecord: 0.1ms | Allocations: 90289)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:30:48 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 77.2ms | Allocations: 5409)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 78.3ms | Allocations: 5784)
+  Rendered layout layouts/application.html.erb (Duration: 83.3ms | Allocations: 7955)
+Completed 200 OK in 153ms (Views: 84.7ms | ActiveRecord: 0.7ms | Allocations: 12915)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:34:29 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 10.1ms | Allocations: 9238)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 12.1ms | Allocations: 9604)
+  Rendered layout layouts/application.html.erb (Duration: 19.4ms | Allocations: 12074)
+Completed 200 OK in 43ms (Views: 38.6ms | ActiveRecord: 0.0ms | Allocations: 13011)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 16:34:43 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-06-13", "cpf"=>"s", "email"=>"s", "endereco"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :endereco. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f93dc142400>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-06-13", "cpf"=>"s", "email"=>"s", "endereco"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:27:in `block in create'
+  [1m[36mPaciente Create (0.5ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", "s"], ["data", "2023-06-13"], ["cpf", "s"], ["email", "s"], ["created_at", "2023-06-19 19:34:43.262452"], ["updated_at", "2023-06-19 19:34:43.262452"]]
+  ↳ app/controllers/pacientes_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (39.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:27:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/1
+Completed 302 Found in 48ms (ActiveRecord: 39.9ms | Allocations: 4032)
+
+
+Started GET "/pacientes/1" for 127.0.0.1 at 2023-06-19 16:34:43 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"1"}
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:63:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  Rendered pacientes/_paciente.html.erb (Duration: 10.3ms | Allocations: 9080)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 14.6ms | Allocations: 10101)
+  Rendered layout layouts/application.html.erb (Duration: 14.7ms | Allocations: 10191)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.2ms | Allocations: 12999)
+
+
+  
+ActionView::Template::Error (undefined method `endereco' for #<Paciente id: 1, nome: "s", data: "2023-06-13", cpf: "s", email: "s", created_at: "2023-06-19 19:34:43.262452000 +0000", updated_at: "2023-06-19 19:34:43.262452000 +0000">):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/show.html.erb:3
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:35:54 -0300
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PacientesController#new as HTML
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 0.4ms | Allocations: 11467)
+
+
+  
+NoMethodError (undefined method `build_endereco' for #<Paciente id: nil, nome: nil, data: nil, cpf: nil, email: nil, created_at: nil, updated_at: nil>):
+  
+app/controllers/pacientes_controller.rb:16:in `new'
+Started GET "/pacientes/" for 127.0.0.1 at 2023-06-19 16:35:57 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/_paciente.html.erb (Duration: 6.1ms | Allocations: 8395)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 15.9ms | Allocations: 10146)
+  Rendered layout layouts/application.html.erb (Duration: 16.1ms | Allocations: 10241)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.2ms | Allocations: 11298)
+
+
+  
+ActionView::Template::Error (undefined method `endereco' for #<Paciente id: 1, nome: "s", data: "2023-06-13", cpf: "s", email: "s", created_at: "2023-06-19 19:34:43.262452000 +0000", updated_at: "2023-06-19 19:34:43.262452000 +0000">):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:36:02 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/_paciente.html.erb (Duration: 15.7ms | Allocations: 7783)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 22.9ms | Allocations: 8759)
+  Rendered layout layouts/application.html.erb (Duration: 23.3ms | Allocations: 8848)
+Completed 500 Internal Server Error in 25ms (ActiveRecord: 0.1ms | Allocations: 9139)
+
+
+  
+ActionView::Template::Error (undefined method `endereco' for #<Paciente id: 1, nome: "s", data: "2023-06-13", cpf: "s", email: "s", created_at: "2023-06-19 19:34:43.262452000 +0000", updated_at: "2023-06-19 19:34:43.262452000 +0000">):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:38:57 -0300
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.2ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 23.5ms | Allocations: 11320)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 34.0ms | Allocations: 17477)
+  Rendered layout layouts/application.html.erb (Duration: 34.3ms | Allocations: 17578)
+Completed 500 Internal Server Error in 59ms (ActiveRecord: 0.9ms | Allocations: 23113)
+
+
+  
+ActionView::Template::Error (undefined method `cep' for nil:NilClass
+
+    '.freeze;@output_buffer.append=( paciente.endereco.cep );@output_buffer.safe_append='
+                                                      ^^^^):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/" for 127.0.0.1 at 2023-06-19 16:39:07 -0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/es/.rbenv/versions/3.1.1/lib/ruby/gems/3.1.0/gems/railties-7.0.2.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 12.1ms | Allocations: 329)
+Completed 200 OK in 23ms (Views: 21.3ms | ActiveRecord: 0.0ms | Allocations: 1185)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:39:16 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 8.0ms | Allocations: 4495)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 14.2ms | Allocations: 4877)
+  Rendered layout layouts/application.html.erb (Duration: 106.6ms | Allocations: 38622)
+Completed 200 OK in 166ms (Views: 126.3ms | ActiveRecord: 0.2ms | Allocations: 44323)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 16:39:30 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"a", "data"=>"2023-06-07", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f5af86b76c8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"a", "data"=>"2023-06-07", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f5af86b76c8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"a", "data"=>"2023-06-07", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f5af86b76c8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"a", "data"=>"2023-06-07", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f5af86b76c8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"a", "data"=>"2023-06-07", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mPaciente Create (2.4ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", nil], ["data", nil], ["cpf", "s"], ["email", "s"], ["created_at", "2023-06-19 19:39:30.282261"], ["updated_at", "2023-06-19 19:39:30.282261"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mEndereco Create (0.1ms)[0m  [1m[32mINSERT INTO "enderecos" ("cep", "cidade", "bairro", "logradouro", "complemento", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cep", "s"], ["cidade", "s"], ["bairro", "s"], ["logradouro", "s"], ["complemento", "s"], ["paciente_id", 2], ["created_at", "2023-06-19 19:39:30.291782"], ["updated_at", "2023-06-19 19:39:30.291782"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mTRANSACTION (37.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/2
+Completed 302 Found in 62ms (ActiveRecord: 40.5ms | Allocations: 6503)
+
+
+Started GET "/pacientes/2" for 127.0.0.1 at 2023-06-19 16:39:30 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mPaciente Load (0.3ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 2], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.7ms | Allocations: 1044)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 3.1ms | Allocations: 1918)
+  Rendered layout layouts/application.html.erb (Duration: 6.0ms | Allocations: 4062)
+Completed 200 OK in 9ms (Views: 6.5ms | ActiveRecord: 0.4ms | Allocations: 5679)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:39:33 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.3ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 3.3ms | Allocations: 3158)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 6.1ms | Allocations: 4224)
+  Rendered layout layouts/application.html.erb (Duration: 6.2ms | Allocations: 4313)
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.4ms | Allocations: 4662)
+
+
+  
+ActionView::Template::Error (undefined method `cep' for nil:NilClass
+
+    '.freeze;@output_buffer.append=( paciente.endereco.cep );@output_buffer.safe_append='
+                                                      ^^^^):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes/2" for 127.0.0.1 at 2023-06-19 16:39:48 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 2], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.9ms | Allocations: 715)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 3.1ms | Allocations: 1138)
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | Allocations: 3188)
+Completed 200 OK in 19ms (Views: 9.1ms | ActiveRecord: 0.2ms | Allocations: 3950)
+
+
+Started GET "/pacientes/16" for 127.0.0.1 at 2023-06-19 16:39:54 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"16"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 16], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+Completed 404 Not Found in 2ms (ActiveRecord: 0.1ms | Allocations: 941)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Paciente with 'id'=16):
+  
+app/controllers/pacientes_controller.rb:69:in `set_paciente'
+Started GET "/pacientes/1" for 127.0.0.1 at 2023-06-19 16:40:06 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 3.2ms | Allocations: 3100)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 4.0ms | Allocations: 3377)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 3465)
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.1ms | Allocations: 4203)
+
+
+  
+ActionView::Template::Error (undefined method `cep' for nil:NilClass
+
+    '.freeze;@output_buffer.append=( paciente.endereco.cep );@output_buffer.safe_append='
+                                                      ^^^^):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/show.html.erb:3
+Started GET "/pacientes/2" for 127.0.0.1 at 2023-06-19 16:40:21 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPaciente Load (0.3ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 2], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.7ms | Allocations: 715)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1153)
+  Rendered layout layouts/application.html.erb (Duration: 17.3ms | Allocations: 3203)
+Completed 200 OK in 22ms (Views: 20.1ms | ActiveRecord: 0.4ms | Allocations: 3965)
+
+
+Started GET "/pacientes/1/destroy" for 127.0.0.1 at 2023-06-19 16:40:46 -0300
+  
+ActionController::RoutingError (No route matches [GET] "/pacientes/1/destroy"):
+  
+Started GET "/pacientes/2/" for 127.0.0.1 at 2023-06-19 16:41:36 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 2], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 4.9ms | Allocations: 775)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 6.5ms | Allocations: 1243)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | Allocations: 3384)
+Completed 200 OK in 11ms (Views: 9.7ms | ActiveRecord: 0.2ms | Allocations: 4243)
+
+
+Started DELETE "/pacientes/2" for 127.0.0.1 at 2023-06-19 16:41:42 -0300
+Processing by PacientesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"2"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  [1m[36mCACHE Paciente Load (0.0ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:56:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Destroy (0.3ms)[0m  [1m[31mDELETE FROM "enderecos" WHERE "enderecos"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mPaciente Destroy (2.3ms)[0m  [1m[31mDELETE FROM "pacientes" WHERE "pacientes"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mTRANSACTION (29.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+Redirected to http://0.0.0.0:3000/pacientes
+Completed 302 Found in 42ms (ActiveRecord: 32.7ms | Allocations: 4585)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:41:42 -0300
+Processing by PacientesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.0ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.3ms | Allocations: 3153)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 3.7ms | Allocations: 4035)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | Allocations: 4123)
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.1ms | Allocations: 4387)
+
+
+  
+ActionView::Template::Error (undefined method `cep' for nil:NilClass
+
+    '.freeze;@output_buffer.append=( paciente.endereco.cep );@output_buffer.safe_append='
+                                                      ^^^^):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes/2" for 127.0.0.1 at 2023-06-19 16:41:50 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+Completed 404 Not Found in 5ms (ActiveRecord: 0.1ms | Allocations: 919)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Paciente with 'id'=2):
+  
+app/controllers/pacientes_controller.rb:69:in `set_paciente'
+Started GET "/pacientes/" for 127.0.0.1 at 2023-06-19 16:41:55 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 27.8ms | Allocations: 3129)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 40.7ms | Allocations: 3994)
+  Rendered layout layouts/application.html.erb (Duration: 41.1ms | Allocations: 4082)
+Completed 500 Internal Server Error in 43ms (ActiveRecord: 0.2ms | Allocations: 4338)
+
+
+  
+ActionView::Template::Error (undefined method `cep' for nil:NilClass
+
+    '.freeze;@output_buffer.append=( paciente.endereco.cep );@output_buffer.safe_append='
+                                                      ^^^^):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:42:03 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 2.6ms | Allocations: 1559)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 4.2ms | Allocations: 1658)
+  Rendered layout layouts/application.html.erb (Duration: 16.2ms | Allocations: 3716)
+Completed 200 OK in 19ms (Views: 17.9ms | ActiveRecord: 0.0ms | Allocations: 4163)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:42:10 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.9ms | Allocations: 3128)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 4.9ms | Allocations: 3994)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | Allocations: 4082)
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.2ms | Allocations: 4338)
+
+
+  
+ActionView::Template::Error (undefined method `cep' for nil:NilClass
+
+    '.freeze;@output_buffer.append=( paciente.endereco.cep );@output_buffer.safe_append='
+                                                      ^^^^):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:45:20 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 4.4ms | Allocations: 3523)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 9.5ms | Allocations: 4876)
+  Rendered layout layouts/application.html.erb (Duration: 9.9ms | Allocations: 4970)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.2ms | Allocations: 5814)
+
+
+  
+ActionView::Template::Error (undefined method `cep' for nil:NilClass
+
+    # '.freeze;@output_buffer.append=( paciente.endereco.cep );@output_buffer.safe_append='
+                                                        ^^^^):
+    22:   <h3> --Endereço-- </h3>
+    23:   <p>
+    24:     <strong>CEP:</strong>
+    25:     # <%= paciente.endereco.cep %>
+    26:   </p>
+    27: 
+    28:   <p>
+  
+app/views/pacientes/_paciente.html.erb:25
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:45:36 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.4ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:30
+  Rendered pacientes/_paciente.html.erb (Duration: 6.8ms | Allocations: 3494)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 11.1ms | Allocations: 4846)
+  Rendered layout layouts/application.html.erb (Duration: 11.3ms | Allocations: 4940)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.5ms | Allocations: 5803)
+
+
+  
+ActionView::Template::Error (undefined method `cidade' for nil:NilClass
+
+    '.freeze;@output_buffer.append=( paciente.endereco.cidade );@output_buffer.safe_append='
+                                                      ^^^^^^^):
+    27: 
+    28:   <p>
+    29:     <strong>Cidade:</strong>
+    30:     <%= paciente.endereco.cidade %>
+    31:   </p>
+    32: 
+    33:   <p>
+  
+app/views/pacientes/_paciente.html.erb:30
+app/views/pacientes/index.html.erb:7
+app/views/pacientes/index.html.erb:6
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:45:54 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (7.8ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/_paciente.html.erb (Duration: 12.1ms | Allocations: 246)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 31.1ms | Allocations: 1710)
+  Rendered layout layouts/application.html.erb (Duration: 49.5ms | Allocations: 4165)
+Completed 200 OK in 52ms (Views: 43.7ms | ActiveRecord: 7.8ms | Allocations: 5060)
+
+
+Started GET "/pacientes/1" for 127.0.0.1 at 2023-06-19 16:45:55 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  Rendered pacientes/_paciente.html.erb (Duration: 0.1ms | Allocations: 37)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 7.8ms | Allocations: 671)
+  Rendered layout layouts/application.html.erb (Duration: 10.3ms | Allocations: 2706)
+Completed 200 OK in 15ms (Views: 12.6ms | ActiveRecord: 0.1ms | Allocations: 3594)
+
+
+Started DELETE "/pacientes/1" for 127.0.0.1 at 2023-06-19 16:45:57 -0300
+Processing by PacientesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"1"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  [1m[36mCACHE Paciente Load (0.0ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:56:in `destroy'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Load (0.3ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mPaciente Destroy (0.2ms)[0m  [1m[31mDELETE FROM "pacientes" WHERE "pacientes"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mTRANSACTION (42.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 43.3ms | Allocations: 5142)
+
+
+  
+NoMethodError (undefined method `destroy' for nil:NilClass
+
+    @paciente.endereco.destroy
+                      ^^^^^^^^):
+  
+app/controllers/pacientes_controller.rb:58:in `destroy'
+Started GET "/pacientes/1" for 127.0.0.1 at 2023-06-19 16:46:42 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+Completed 404 Not Found in 8ms (ActiveRecord: 0.9ms | Allocations: 3880)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Paciente with 'id'=1):
+  
+app/controllers/pacientes_controller.rb:69:in `set_paciente'
+Started GET "/pacientes/" for 127.0.0.1 at 2023-06-19 16:46:47 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 3.1ms | Allocations: 1267)
+  Rendered layout layouts/application.html.erb (Duration: 19.1ms | Allocations: 15089)
+Completed 200 OK in 23ms (Views: 22.2ms | ActiveRecord: 0.1ms | Allocations: 16002)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:47:16 -0300
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 28.9ms | Allocations: 7547)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 29.8ms | Allocations: 8184)
+  Rendered layout layouts/application.html.erb (Duration: 102.5ms | Allocations: 42337)
+Completed 200 OK in 122ms (Views: 104.2ms | ActiveRecord: 0.7ms | Allocations: 59030)
+
+
+Started GET "/pacientes/" for 127.0.0.1 at 2023-06-19 16:48:29 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 4.8ms | Allocations: 1980)
+  Rendered layout layouts/application.html.erb (Duration: 22.4ms | Allocations: 15507)
+Completed 200 OK in 27ms (Views: 23.7ms | ActiveRecord: 0.4ms | Allocations: 17450)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:48:32 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 1.2ms | Allocations: 745)
+  Rendered layout layouts/application.html.erb (Duration: 3.4ms | Allocations: 2803)
+Completed 200 OK in 4ms (Views: 4.0ms | ActiveRecord: 0.1ms | Allocations: 3112)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:48:40 -0300
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.3ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 18.3ms | Allocations: 1752)
+  Rendered layout layouts/application.html.erb (Duration: 85.7ms | Allocations: 35539)
+Completed 200 OK in 96ms (Views: 88.9ms | ActiveRecord: 0.3ms | Allocations: 40894)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:48:42 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 7.0ms | Allocations: 4404)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 9.7ms | Allocations: 4787)
+  Rendered layout layouts/application.html.erb (Duration: 12.3ms | Allocations: 6959)
+Completed 200 OK in 39ms (Views: 16.6ms | ActiveRecord: 0.8ms | Allocations: 18889)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 16:48:53 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bda1ed8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bda1ed8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bda1ed8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bda1ed8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mPaciente Create (0.2ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", nil], ["data", nil], ["cpf", "s"], ["email", "s"], ["created_at", "2023-06-19 19:48:53.357744"], ["updated_at", "2023-06-19 19:48:53.357744"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mEndereco Create (0.1ms)[0m  [1m[32mINSERT INTO "enderecos" ("cep", "cidade", "bairro", "logradouro", "complemento", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cep", "s"], ["cidade", "s"], ["bairro", "s"], ["logradouro", "s"], ["complemento", "s"], ["paciente_id", 3], ["created_at", "2023-06-19 19:48:53.360318"], ["updated_at", "2023-06-19 19:48:53.360318"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mTRANSACTION (30.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/3
+Completed 302 Found in 39ms (ActiveRecord: 30.4ms | Allocations: 6573)
+
+
+Started GET "/pacientes/3" for 127.0.0.1 at 2023-06-19 16:48:53 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"3"}
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 3], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 4.0ms | Allocations: 2181)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 6.1ms | Allocations: 3361)
+  Rendered layout layouts/application.html.erb (Duration: 8.1ms | Allocations: 5511)
+Completed 200 OK in 12ms (Views: 8.5ms | ActiveRecord: 0.3ms | Allocations: 8275)
+
+
+Started DELETE "/pacientes/3" for 127.0.0.1 at 2023-06-19 16:48:58 -0300
+Processing by PacientesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"3"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  [1m[36mCACHE Paciente Load (0.0ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:56:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Destroy (0.2ms)[0m  [1m[31mDELETE FROM "enderecos" WHERE "enderecos"."id" = ?[0m  [["id", 2]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mPaciente Destroy (0.1ms)[0m  [1m[31mDELETE FROM "pacientes" WHERE "pacientes"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mTRANSACTION (38.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+Redirected to http://0.0.0.0:3000/pacientes
+Completed 302 Found in 51ms (ActiveRecord: 38.6ms | Allocations: 4651)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 16:48:58 -0300
+Processing by PacientesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 791)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | Allocations: 2836)
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 0.1ms | Allocations: 3151)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 16:49:00 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 7.3ms | Allocations: 1531)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 7.7ms | Allocations: 1633)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | Allocations: 3677)
+Completed 200 OK in 11ms (Views: 10.1ms | ActiveRecord: 0.0ms | Allocations: 4136)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 16:49:12 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-27", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bc401e8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-27", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bc401e8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-27", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bc401e8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-27", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f2d8bc401e8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"s", "data"=>"2023-05-27", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mPaciente Create (0.2ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", nil], ["data", nil], ["cpf", "s"], ["email", "s"], ["created_at", "2023-06-19 19:49:12.052754"], ["updated_at", "2023-06-19 19:49:12.052754"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mEndereco Create (0.1ms)[0m  [1m[32mINSERT INTO "enderecos" ("cep", "cidade", "bairro", "logradouro", "complemento", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cep", "s"], ["cidade", "s"], ["bairro", "s"], ["logradouro", "s"], ["complemento", "s"], ["paciente_id", 4], ["created_at", "2023-06-19 19:49:12.055429"], ["updated_at", "2023-06-19 19:49:12.055429"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mTRANSACTION (16.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/4
+Completed 302 Found in 25ms (ActiveRecord: 16.8ms | Allocations: 4314)
+
+
+Started GET "/pacientes/4" for 127.0.0.1 at 2023-06-19 16:49:12 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"4"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.2ms | Allocations: 715)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 1.9ms | Allocations: 1174)
+  Rendered layout layouts/application.html.erb (Duration: 17.1ms | Allocations: 3220)
+Completed 200 OK in 19ms (Views: 17.7ms | ActiveRecord: 0.2ms | Allocations: 3988)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 16:52:47 -0300
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.5ms | Allocations: 355)
+  Rendered layout layouts/application.html.erb (Duration: 52.4ms | Allocations: 34559)
+Completed 200 OK in 57ms (Views: 54.3ms | ActiveRecord: 0.0ms | Allocations: 37179)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:07:54 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.6ms | Allocations: 147)
+  Rendered layout layouts/application.html.erb (Duration: 13.4ms | Allocations: 14103)
+Completed 200 OK in 16ms (Views: 15.5ms | Allocations: 14946)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:08:38 -0300
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 2.0ms | Allocations: 729)
+  Rendered layout layouts/application.html.erb (Duration: 88.9ms | Allocations: 34873)
+Completed 200 OK in 97ms (Views: 95.0ms | ActiveRecord: 0.0ms | Allocations: 37493)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:08:42 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 11.1ms | Allocations: 11253)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 18.7ms | Allocations: 17154)
+  Rendered layout layouts/application.html.erb (Duration: 20.9ms | Allocations: 19426)
+Completed 200 OK in 35ms (Views: 21.0ms | ActiveRecord: 0.9ms | Allocations: 22208)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 17:08:46 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 16.3ms | Allocations: 4332)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 19.1ms | Allocations: 4700)
+  Rendered layout layouts/application.html.erb (Duration: 23.3ms | Allocations: 6868)
+Completed 200 OK in 25ms (Views: 23.9ms | ActiveRecord: 0.0ms | Allocations: 7658)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:08:51 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.3ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.1ms | Allocations: 781)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 5.0ms | Allocations: 1747)
+  Rendered layout layouts/application.html.erb (Duration: 9.9ms | Allocations: 3792)
+Completed 200 OK in 12ms (Views: 10.3ms | ActiveRecord: 0.5ms | Allocations: 4130)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 17:08:53 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 3.1ms | Allocations: 1491)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 3.5ms | Allocations: 1591)
+  Rendered layout layouts/application.html.erb (Duration: 9.3ms | Allocations: 3635)
+Completed 200 OK in 17ms (Views: 13.7ms | ActiveRecord: 0.0ms | Allocations: 4095)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:08:54 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.4ms | Allocations: 719)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 4.4ms | Allocations: 1596)
+  Rendered layout layouts/application.html.erb (Duration: 6.8ms | Allocations: 3639)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.2ms | Allocations: 3925)
+
+
+Started GET "/pacientes/4" for 127.0.0.1 at 2023-06-19 17:08:56 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 4.3ms | Allocations: 715)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 6.5ms | Allocations: 1373)
+  Rendered layout layouts/application.html.erb (Duration: 18.4ms | Allocations: 3412)
+Completed 200 OK in 27ms (Views: 19.3ms | ActiveRecord: 0.2ms | Allocations: 4929)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:09:00 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.4ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.4ms | Allocations: 719)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 5.3ms | Allocations: 1608)
+  Rendered layout layouts/application.html.erb (Duration: 9.2ms | Allocations: 3651)
+Completed 200 OK in 10ms (Views: 9.4ms | ActiveRecord: 0.5ms | Allocations: 3937)
+
+
+Started GET "/pacientes/4" for 127.0.0.1 at 2023-06-19 17:09:05 -0300
+Processing by PacientesController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 3.9ms | Allocations: 715)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 6.3ms | Allocations: 1144)
+  Rendered layout layouts/application.html.erb (Duration: 12.1ms | Allocations: 3179)
+Completed 200 OK in 15ms (Views: 12.5ms | ActiveRecord: 0.2ms | Allocations: 3944)
+
+
+Started DELETE "/pacientes/4" for 127.0.0.1 at 2023-06-19 17:09:06 -0300
+Processing by PacientesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"4"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  [1m[36mCACHE Paciente Load (0.0ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:56:in `destroy'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Load (0.2ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Destroy (0.1ms)[0m  [1m[31mDELETE FROM "enderecos" WHERE "enderecos"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mPaciente Destroy (0.1ms)[0m  [1m[31mDELETE FROM "pacientes" WHERE "pacientes"."id" = ?[0m  [["id", 4]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mTRANSACTION (18.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+Redirected to http://0.0.0.0:3000/pacientes
+Completed 302 Found in 27ms (ActiveRecord: 18.8ms | Allocations: 5080)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:09:06 -0300
+Processing by PacientesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 2.0ms | Allocations: 792)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | Allocations: 2962)
+Completed 200 OK in 6ms (Views: 5.5ms | ActiveRecord: 0.1ms | Allocations: 3336)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 17:09:09 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 1.7ms | Allocations: 1543)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 2.0ms | Allocations: 1646)
+  Rendered layout layouts/application.html.erb (Duration: 6.0ms | Allocations: 3689)
+Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 0.0ms | Allocations: 4139)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 17:09:20 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-06-20", "cpf"=>"ss", "email"=>"ss", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f4af40f0578>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-06-20", "cpf"=>"ss", "email"=>"ss", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f4af40f0578>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-06-20", "cpf"=>"ss", "email"=>"ss", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f4af40f0578>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-06-20", "cpf"=>"ss", "email"=>"ss", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameters: :nome, :data. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f4af40f0578>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-06-20", "cpf"=>"ss", "email"=>"ss", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mPaciente Create (0.3ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", nil], ["data", nil], ["cpf", "ss"], ["email", "ss"], ["created_at", "2023-06-19 20:09:20.988556"], ["updated_at", "2023-06-19 20:09:20.988556"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mEndereco Create (0.2ms)[0m  [1m[32mINSERT INTO "enderecos" ("cep", "cidade", "bairro", "logradouro", "complemento", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cep", "s"], ["cidade", "s"], ["bairro", "s"], ["logradouro", "s"], ["complemento", "s"], ["paciente_id", 5], ["created_at", "2023-06-19 20:09:20.998856"], ["updated_at", "2023-06-19 20:09:20.998856"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mTRANSACTION (38.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/5
+Completed 302 Found in 58ms (ActiveRecord: 38.5ms | Allocations: 5937)
+
+
+Started GET "/pacientes/5" for 127.0.0.1 at 2023-06-19 17:09:21 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"5"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 5], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.0ms | Allocations: 717)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 2.8ms | Allocations: 1213)
+  Rendered layout layouts/application.html.erb (Duration: 5.8ms | Allocations: 3263)
+Completed 200 OK in 8ms (Views: 7.0ms | ActiveRecord: 0.2ms | Allocations: 4031)
+
+
+Started DELETE "/pacientes/5" for 127.0.0.1 at 2023-06-19 17:10:25 -0300
+Processing by PacientesController#destroy as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"5"}
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  [1m[36mCACHE Paciente Load (0.0ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:56:in `destroy'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mEndereco Destroy (0.1ms)[0m  [1m[31mDELETE FROM "enderecos" WHERE "enderecos"."id" = ?[0m  [["id", 4]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mPaciente Destroy (0.1ms)[0m  [1m[31mDELETE FROM "pacientes" WHERE "pacientes"."id" = ?[0m  [["id", 5]]
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+  [1m[36mTRANSACTION (35.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:57:in `destroy'
+Redirected to http://0.0.0.0:3000/pacientes
+Completed 302 Found in 60ms (ActiveRecord: 37.0ms | Allocations: 14063)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:10:25 -0300
+Processing by PacientesController#index as TURBO_STREAM
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 2.3ms | Allocations: 1017)
+  Rendered layout layouts/application.html.erb (Duration: 12.7ms | Allocations: 14621)
+Completed 200 OK in 14ms (Views: 13.7ms | ActiveRecord: 0.1ms | Allocations: 15238)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 17:10:26 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 9.3ms | Allocations: 1655)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 9.8ms | Allocations: 1762)
+  Rendered layout layouts/application.html.erb (Duration: 11.9ms | Allocations: 3805)
+Completed 200 OK in 16ms (Views: 13.2ms | ActiveRecord: 0.0ms | Allocations: 4352)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 17:10:39 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f4ad6ef48e0>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f4ad6ef48e0>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giu", "data"=>"2023-05-30", "cpf"=>"s", "email"=>"s", "endereco_attributes"=>{"cidade"=>"s", "logradouro"=>"s", "complemento"=>"s", "bairro"=>"s", "cep"=>"s", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mPaciente Create (0.2ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", "Giu"], ["data", "2023-05-30"], ["cpf", "s"], ["email", "s"], ["created_at", "2023-06-19 20:10:39.306657"], ["updated_at", "2023-06-19 20:10:39.306657"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mEndereco Create (2.0ms)[0m  [1m[32mINSERT INTO "enderecos" ("cep", "cidade", "bairro", "logradouro", "complemento", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cep", "s"], ["cidade", "s"], ["bairro", "s"], ["logradouro", "s"], ["complemento", "s"], ["paciente_id", 6], ["created_at", "2023-06-19 20:10:39.314019"], ["updated_at", "2023-06-19 20:10:39.314019"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mTRANSACTION (36.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/6
+Completed 302 Found in 57ms (ActiveRecord: 38.3ms | Allocations: 4451)
+
+
+Started GET "/pacientes/6" for 127.0.0.1 at 2023-06-19 17:10:39 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"6"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 6], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 3.4ms | Allocations: 745)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 4.3ms | Allocations: 1262)
+  Rendered layout layouts/application.html.erb (Duration: 11.0ms | Allocations: 3297)
+Completed 200 OK in 15ms (Views: 13.1ms | ActiveRecord: 0.2ms | Allocations: 4078)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:10:47 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.4ms | Allocations: 204)
+  Rendered layout layouts/application.html.erb (Duration: 67.4ms | Allocations: 2720)
+Completed 200 OK in 72ms (Views: 71.3ms | ActiveRecord: 0.0ms | Allocations: 3371)
+
+
+Started GET "/medicos/new" for 127.0.0.1 at 2023-06-19 17:10:50 -0300
+Processing by MedicosController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/new.html.erb within layouts/application
+  Rendered medicos/_form.html.erb (Duration: 2.4ms | Allocations: 2154)
+  Rendered medicos/new.html.erb within layouts/application (Duration: 3.2ms | Allocations: 2526)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 4764)
+Completed 200 OK in 16ms (Views: 6.8ms | ActiveRecord: 0.3ms | Allocations: 8651)
+
+
+Started POST "/medicos" for 127.0.0.1 at 2023-06-19 17:10:57 -0300
+Processing by MedicosController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "medico"=>{"nome"=>"Giu2", "cpf"=>"ss", "email"=>"s", "especialidade"=>"s", "CRM"=>"s"}, "commit"=>"Create Medico"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+  [1m[36mMedico Create (5.6ms)[0m  [1m[32mINSERT INTO "medicos" ("nome", "cpf", "email", "especialidade", "CRM", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Giu2"], ["cpf", "ss"], ["email", "s"], ["especialidade", "s"], ["CRM", "s"], ["created_at", "2023-06-19 20:10:57.436021"], ["updated_at", "2023-06-19 20:10:57.436021"]]
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (38.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+Redirected to http://0.0.0.0:3000/medicos/1
+Completed 302 Found in 56ms (ActiveRecord: 44.5ms | Allocations: 2642)
+
+
+Started GET "/medicos/1" for 127.0.0.1 at 2023-06-19 17:10:57 -0300
+Processing by MedicosController#show as TURBO_STREAM
+  Parameters: {"id"=>"1"}
+  [1m[36mMedico Load (0.2ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/medicos_controller.rb:63:in `set_medico'
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/show.html.erb within layouts/application
+  Rendered medicos/_medico.html.erb (Duration: 0.6ms | Allocations: 260)
+  Rendered medicos/show.html.erb within layouts/application (Duration: 15.6ms | Allocations: 12056)
+  Rendered layout layouts/application.html.erb (Duration: 15.8ms | Allocations: 12157)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.2ms | Allocations: 13784)
+
+
+  
+ActionView::Template::Error (undefined method `consultums' for #<Medico id: 1, nome: "Giu2", cpf: "ss", email: "s", especialidade: "s", CRM: "s", created_at: "2023-06-19 20:10:57.436021000 +0000", updated_at: "2023-06-19 20:10:57.436021000 +0000">):
+    15:     </thead>
+    16: 
+    17:     <tbody>
+    18:     <% @medico.consultums.each do |consultum| %>
+    19:       <tr>
+    20:         <td><%= consultum.data %></td>
+    21:         <td><%= consultum.horario %></td>
+  
+app/views/medicos/show.html.erb:18
+Started GET "/medicos" for 127.0.0.1 at 2023-06-19 17:16:55 -0300
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by MedicosController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/index.html.erb within layouts/application
+  [1m[36mMedico Load (0.2ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/medicos/index.html.erb:6
+  Rendered medicos/_medico.html.erb (Duration: 0.7ms | Allocations: 343)
+  Rendered medicos/index.html.erb within layouts/application (Duration: 18.4ms | Allocations: 7093)
+  Rendered layout layouts/application.html.erb (Duration: 98.7ms | Allocations: 40873)
+Completed 200 OK in 116ms (Views: 101.1ms | ActiveRecord: 1.5ms | Allocations: 47247)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:17:12 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.4ms | Allocations: 446)
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | Allocations: 2926)
+Completed 200 OK in 7ms (Views: 6.2ms | ActiveRecord: 0.0ms | Allocations: 3698)
+
+
+Started GET "/consulta/new" for 127.0.0.1 at 2023-06-19 17:17:15 -0300
+Processing by ConsultaController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/new.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/consulta/_form.html.erb:26
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/consulta/_form.html.erb:31
+  Rendered consulta/_form.html.erb (Duration: 20.2ms | Allocations: 8465)
+  Rendered consulta/new.html.erb within layouts/application (Duration: 22.1ms | Allocations: 8848)
+  Rendered layout layouts/application.html.erb (Duration: 24.9ms | Allocations: 11083)
+Completed 200 OK in 39ms (Views: 26.3ms | ActiveRecord: 1.2ms | Allocations: 16437)
+
+
+Started POST "/consulta" for 127.0.0.1 at 2023-06-19 17:17:57 -0300
+Processing by ConsultaController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "consultum"=>{"data"=>"2023-06-12", "horario"=>"12:00", "medico_id"=>"1", "paciente_id"=>"6"}, "commit"=>"Create Consultum"}
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:24:in `create'
+  [1m[36mMedico Load (0.2ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:25:in `create'
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.4ms | Allocations: 9027)
+
+
+  
+NoMethodError (undefined method `consultums' for #<Paciente id: 6, nome: "Giu", data: "2023-05-30", cpf: "s", email: "s", created_at: "2023-06-19 20:10:39.306657000 +0000", updated_at: "2023-06-19 20:10:39.306657000 +0000">):
+  
+app/controllers/consulta_controller.rb:28:in `create'
+Started GET "/consulta/" for 127.0.0.1 at 2023-06-19 17:20:09 -0300
+Processing by ConsultaController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/index.html.erb within layouts/application
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/views/consulta/index.html.erb:6
+  [1m[36mConsultum Load (0.1ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta"[0m
+  ↳ app/views/consulta/index.html.erb:6
+  Rendered consulta/index.html.erb within layouts/application (Duration: 5.3ms | Allocations: 1964)
+  Rendered layout layouts/application.html.erb (Duration: 25.7ms | Allocations: 15591)
+Completed 200 OK in 33ms (Views: 27.5ms | ActiveRecord: 0.6ms | Allocations: 17830)
+
+
+Started GET "/consulta/new" for 127.0.0.1 at 2023-06-19 17:20:10 -0300
+Processing by ConsultaController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/new.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/consulta/_form.html.erb:26
+  [1m[36mPaciente Load (0.2ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/consulta/_form.html.erb:31
+  Rendered consulta/_form.html.erb (Duration: 34.0ms | Allocations: 10047)
+  Rendered consulta/new.html.erb within layouts/application (Duration: 34.3ms | Allocations: 10162)
+  Rendered layout layouts/application.html.erb (Duration: 36.3ms | Allocations: 12318)
+Completed 200 OK in 44ms (Views: 35.8ms | ActiveRecord: 1.7ms | Allocations: 14504)
+
+
+Started POST "/consulta" for 127.0.0.1 at 2023-06-19 17:20:20 -0300
+Processing by ConsultaController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "consultum"=>{"data"=>"2023-06-07", "horario"=>"15:33", "medico_id"=>"1", "paciente_id"=>"6"}, "commit"=>"Create Consultum"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:24:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/new.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/consulta/_form.html.erb:26
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/consulta/_form.html.erb:31
+  Rendered consulta/_form.html.erb (Duration: 4.9ms | Allocations: 4347)
+  Rendered consulta/new.html.erb within layouts/application (Duration: 5.1ms | Allocations: 4454)
+  Rendered layout layouts/application.html.erb (Duration: 7.4ms | Allocations: 6602)
+Completed 422 Unprocessable Entity in 41ms (Views: 7.8ms | ActiveRecord: 0.6ms | Allocations: 21485)
+
+
+Started POST "/consulta" for 127.0.0.1 at 2023-06-19 17:20:43 -0300
+Processing by ConsultaController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "consultum"=>{"data"=>"2023-06-21", "horario"=>"15:33:00.000", "medico_id"=>"1", "paciente_id"=>"6"}, "commit"=>"Create Consultum"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:24:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/new.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/consulta/_form.html.erb:26
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/consulta/_form.html.erb:31
+  Rendered consulta/_form.html.erb (Duration: 6.0ms | Allocations: 3960)
+  Rendered consulta/new.html.erb within layouts/application (Duration: 6.3ms | Allocations: 4059)
+  Rendered layout layouts/application.html.erb (Duration: 8.4ms | Allocations: 6094)
+Completed 422 Unprocessable Entity in 30ms (Views: 12.9ms | ActiveRecord: 0.5ms | Allocations: 13502)
+
+
+Started GET "/consulta" for 127.0.0.1 at 2023-06-19 17:21:06 -0300
+Processing by ConsultaController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/index.html.erb within layouts/application
+  [1m[36mConsultum Load (0.1ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta"[0m
+  ↳ app/views/consulta/index.html.erb:6
+  Rendered consulta/index.html.erb within layouts/application (Duration: 10.0ms | Allocations: 762)
+  Rendered layout layouts/application.html.erb (Duration: 16.1ms | Allocations: 2805)
+Completed 200 OK in 20ms (Views: 18.8ms | ActiveRecord: 0.1ms | Allocations: 3091)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:21:10 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.3ms | Allocations: 204)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 2689)
+Completed 200 OK in 24ms (Views: 23.2ms | ActiveRecord: 0.0ms | Allocations: 3340)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 17:21:13 -0300
+Processing by PacientesController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 4.4ms | Allocations: 2720)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 6.2ms | Allocations: 3107)
+  Rendered layout layouts/application.html.erb (Duration: 8.4ms | Allocations: 5352)
+Completed 200 OK in 17ms (Views: 9.6ms | ActiveRecord: 0.7ms | Allocations: 12038)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 17:21:33 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giudicelli", "data"=>"2023-06-12", "cpf"=>"0276307203608923", "email"=>"aaaaaaaa", "endereco_attributes"=>{"cidade"=>"sss", "logradouro"=>"sss", "complemento"=>"sss", "bairro"=>"sss", "cep"=>"sss", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6934109dd0>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giudicelli", "data"=>"2023-06-12", "cpf"=>"0276307203608923", "email"=>"aaaaaaaa", "endereco_attributes"=>{"cidade"=>"sss", "logradouro"=>"sss", "complemento"=>"sss", "bairro"=>"sss", "cep"=>"sss", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6934109dd0>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giudicelli", "data"=>"2023-06-12", "cpf"=>"0276307203608923", "email"=>"aaaaaaaa", "endereco_attributes"=>{"cidade"=>"sss", "logradouro"=>"sss", "complemento"=>"sss", "bairro"=>"sss", "cep"=>"sss", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 2.4ms | Allocations: 2226)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 3.4ms | Allocations: 2329)
+  Rendered layout layouts/application.html.erb (Duration: 7.0ms | Allocations: 4366)
+Completed 422 Unprocessable Entity in 11ms (Views: 7.5ms | ActiveRecord: 0.0ms | Allocations: 6599)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 17:21:40 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giudicelli", "data"=>"2023-06-12", "cpf"=>"0276307203608923", "email"=>"aaaaaaaa@gg", "endereco_attributes"=>{"cidade"=>"sss", "logradouro"=>"sss", "complemento"=>"sss", "bairro"=>"sss", "cep"=>"sss", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f693403abc0>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giudicelli", "data"=>"2023-06-12", "cpf"=>"0276307203608923", "email"=>"aaaaaaaa@gg", "endereco_attributes"=>{"cidade"=>"sss", "logradouro"=>"sss", "complemento"=>"sss", "bairro"=>"sss", "cep"=>"sss", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f693403abc0>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Giudicelli", "data"=>"2023-06-12", "cpf"=>"0276307203608923", "email"=>"aaaaaaaa@gg", "endereco_attributes"=>{"cidade"=>"sss", "logradouro"=>"sss", "complemento"=>"sss", "bairro"=>"sss", "cep"=>"sss", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mPaciente Create (1.0ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", "Giudicelli"], ["data", "2023-06-12"], ["cpf", "0276307203608923"], ["email", "aaaaaaaa@gg"], ["created_at", "2023-06-19 20:21:40.657463"], ["updated_at", "2023-06-19 20:21:40.657463"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mEndereco Create (3.5ms)[0m  [1m[32mINSERT INTO "enderecos" ("cep", "cidade", "bairro", "logradouro", "complemento", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cep", "sss"], ["cidade", "sss"], ["bairro", "sss"], ["logradouro", "sss"], ["complemento", "sss"], ["paciente_id", 7], ["created_at", "2023-06-19 20:21:40.661647"], ["updated_at", "2023-06-19 20:21:40.661647"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mTRANSACTION (45.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/7
+Completed 302 Found in 61ms (ActiveRecord: 50.3ms | Allocations: 5249)
+
+
+Started GET "/pacientes/7" for 127.0.0.1 at 2023-06-19 17:21:40 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"7"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.2ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 7], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.7ms | Allocations: 2055)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 4.6ms | Allocations: 2956)
+  Rendered layout layouts/application.html.erb (Duration: 6.5ms | Allocations: 5002)
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 0.2ms | Allocations: 5933)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:21:48 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 6], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.4ms | Allocations: 729)
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 7], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.3ms | Allocations: 731)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 5.4ms | Allocations: 2680)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | Allocations: 4726)
+Completed 200 OK in 10ms (Views: 9.8ms | ActiveRecord: 0.2ms | Allocations: 5092)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:21:58 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.2ms | Allocations: 136)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | Allocations: 2323)
+Completed 200 OK in 4ms (Views: 3.8ms | ActiveRecord: 0.0ms | Allocations: 2596)
+
+
+Started GET "/medicos/new" for 127.0.0.1 at 2023-06-19 17:22:00 -0300
+Processing by MedicosController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/new.html.erb within layouts/application
+  Rendered medicos/_form.html.erb (Duration: 6.7ms | Allocations: 2152)
+  Rendered medicos/new.html.erb within layouts/application (Duration: 9.6ms | Allocations: 2526)
+  Rendered layout layouts/application.html.erb (Duration: 18.4ms | Allocations: 4763)
+Completed 200 OK in 28ms (Views: 27.1ms | ActiveRecord: 0.0ms | Allocations: 5592)
+
+
+Started POST "/medicos" for 127.0.0.1 at 2023-06-19 17:22:24 -0300
+Processing by MedicosController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "medico"=>{"nome"=>"Ruam", "cpf"=>"32323232", "email"=>"g@hhh", "especialidade"=>"asasasa", "CRM"=>"232323"}, "commit"=>"Create Medico"}
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/new.html.erb within layouts/application
+  Rendered medicos/_form.html.erb (Duration: 3.0ms | Allocations: 1701)
+  Rendered medicos/new.html.erb within layouts/application (Duration: 3.3ms | Allocations: 1800)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | Allocations: 3835)
+Completed 422 Unprocessable Entity in 9ms (Views: 7.3ms | ActiveRecord: 0.0ms | Allocations: 5097)
+
+
+Started POST "/medicos" for 127.0.0.1 at 2023-06-19 17:22:28 -0300
+Processing by MedicosController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "medico"=>{"nome"=>"Ruam", "cpf"=>"32323232444", "email"=>"g@hhh", "especialidade"=>"asasasa", "CRM"=>"232323"}, "commit"=>"Create Medico"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+  [1m[36mMedico Create (0.2ms)[0m  [1m[32mINSERT INTO "medicos" ("nome", "cpf", "email", "especialidade", "CRM", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Ruam"], ["cpf", "32323232444"], ["email", "g@hhh"], ["especialidade", "asasasa"], ["CRM", "232323"], ["created_at", "2023-06-19 20:22:28.872062"], ["updated_at", "2023-06-19 20:22:28.872062"]]
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (43.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+Redirected to http://0.0.0.0:3000/medicos/2
+Completed 302 Found in 49ms (ActiveRecord: 43.3ms | Allocations: 2635)
+
+
+Started GET "/medicos/2" for 127.0.0.1 at 2023-06-19 17:22:28 -0300
+Processing by MedicosController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/medicos_controller.rb:63:in `set_medico'
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/show.html.erb within layouts/application
+  Rendered medicos/_medico.html.erb (Duration: 0.3ms | Allocations: 44)
+  [1m[36mConsultum Load (0.1ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta" WHERE "consulta"."medico_id" = ?[0m  [["medico_id", 2]]
+  ↳ app/views/medicos/show.html.erb:18
+  Rendered medicos/show.html.erb within layouts/application (Duration: 3.8ms | Allocations: 2537)
+  Rendered layout layouts/application.html.erb (Duration: 7.0ms | Allocations: 4572)
+Completed 200 OK in 9ms (Views: 7.7ms | ActiveRecord: 0.2ms | Allocations: 5437)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:22:34 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.2ms | Allocations: 136)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | Allocations: 2350)
+Completed 200 OK in 4ms (Views: 3.9ms | ActiveRecord: 0.0ms | Allocations: 2626)
+
+
+Started GET "/consulta/new" for 127.0.0.1 at 2023-06-19 17:22:37 -0300
+Processing by ConsultaController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/new.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/consulta/_form.html.erb:26
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/consulta/_form.html.erb:31
+  Rendered consulta/_form.html.erb (Duration: 8.9ms | Allocations: 2507)
+  Rendered consulta/new.html.erb within layouts/application (Duration: 9.2ms | Allocations: 2606)
+  Rendered layout layouts/application.html.erb (Duration: 11.8ms | Allocations: 4649)
+Completed 200 OK in 13ms (Views: 12.3ms | ActiveRecord: 0.2ms | Allocations: 4940)
+
+
+Started POST "/consulta" for 127.0.0.1 at 2023-06-19 17:22:59 -0300
+Processing by ConsultaController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "consultum"=>{"data"=>"2023-06-21", "horario"=>"16:06", "medico_id"=>"2", "paciente_id"=>"7"}, "commit"=>"Create Consultum"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:24:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mConsultum Create (0.2ms)[0m  [1m[32mINSERT INTO "consulta" ("data", "horario", "medico_id", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["data", "2023-06-21"], ["horario", "2000-01-01 16:06:00"], ["medico_id", 2], ["paciente_id", 7], ["created_at", "2023-06-19 20:22:59.291964"], ["updated_at", "2023-06-19 20:22:59.291964"]]
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (28.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+Redirected to http://0.0.0.0:3000/consulta/1
+Completed 302 Found in 47ms (ActiveRecord: 29.2ms | Allocations: 5581)
+
+
+Started GET "/consulta/1" for 127.0.0.1 at 2023-06-19 17:22:59 -0300
+Processing by ConsultaController#show as TURBO_STREAM
+  Parameters: {"id"=>"1"}
+  [1m[36mConsultum Load (0.1ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta" WHERE "consulta"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:68:in `set_consultum'
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/show.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/views/consulta/show.html.erb:14
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/views/consulta/show.html.erb:19
+  Rendered consulta/show.html.erb within layouts/application (Duration: 4.3ms | Allocations: 2857)
+  Rendered layout layouts/application.html.erb (Duration: 6.8ms | Allocations: 4907)
+Completed 200 OK in 9ms (Views: 7.1ms | ActiveRecord: 0.3ms | Allocations: 6358)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:23:05 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.6ms | Allocations: 136)
+  Rendered layout layouts/application.html.erb (Duration: 3.3ms | Allocations: 2337)
+Completed 200 OK in 5ms (Views: 4.4ms | ActiveRecord: 0.0ms | Allocations: 2611)
+
+
+Started GET "/pacientes/new" for 127.0.0.1 at 2023-06-19 17:34:25 -0300
+Processing by PacientesController#new as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/pacientes_controller.rb:15:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 3.9ms | Allocations: 1767)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 5.0ms | Allocations: 1889)
+  Rendered layout layouts/application.html.erb (Duration: 16.3ms | Allocations: 15492)
+Completed 200 OK in 34ms (Views: 17.6ms | ActiveRecord: 0.3ms | Allocations: 24434)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 17:35:05 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"6666785857885", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausadas", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"333333", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6916dd10b8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"6666785857885", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausadas", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"333333", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6916dd10b8>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"6666785857885", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausadas", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"333333", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 5.1ms | Allocations: 2585)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 5.7ms | Allocations: 2684)
+  Rendered layout layouts/application.html.erb (Duration: 7.8ms | Allocations: 4719)
+Completed 422 Unprocessable Entity in 13ms (Views: 9.1ms | ActiveRecord: 0.0ms | Allocations: 7197)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 17:35:22 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"666678585788", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausad", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"44444444", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6916d5be30>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"666678585788", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausad", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"44444444", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6916d5be30>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"666678585788", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausad", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"44444444", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/new.html.erb within layouts/application
+  Rendered pacientes/_form.html.erb (Duration: 2.3ms | Allocations: 1809)
+  Rendered pacientes/new.html.erb within layouts/application (Duration: 3.0ms | Allocations: 1908)
+  Rendered layout layouts/application.html.erb (Duration: 6.2ms | Allocations: 3943)
+Completed 422 Unprocessable Entity in 13ms (Views: 9.9ms | ActiveRecord: 0.0ms | Allocations: 5822)
+
+
+Started POST "/pacientes" for 127.0.0.1 at 2023-06-19 17:35:30 -0300
+Processing by PacientesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"88848483889", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausad", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"44444444", "_destroy"=>"0"}}, "commit"=>"Create Paciente"}
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6916cd5920>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"88848483889", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausad", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"44444444", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+[31mUnpermitted parameter: :_destroy. Context: { controller: PacientesController, action: create, request: #<ActionDispatch::Request:0x00007f6916cd5920>, params: {"authenticity_token"=>"[FILTERED]", "paciente"=>{"nome"=>"Dayane", "data"=>"2023-06-21", "cpf"=>"88848483889", "email"=>"Day@gmail", "endereco_attributes"=>{"cidade"=>"SSSDDSSDSD", "logradouro"=>"eujagsvlausad", "complemento"=>"asDFSEWFASF", "bairro"=>"ASDFASDF", "cep"=>"44444444", "_destroy"=>"0"}}, "commit"=>"Create Paciente", "controller"=>"pacientes", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mPaciente Create (0.2ms)[0m  [1m[32mINSERT INTO "pacientes" ("nome", "data", "cpf", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["nome", "Dayane"], ["data", "2023-06-21"], ["cpf", "88848483889"], ["email", "Day@gmail"], ["created_at", "2023-06-19 20:35:30.902929"], ["updated_at", "2023-06-19 20:35:30.902929"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mEndereco Create (0.1ms)[0m  [1m[32mINSERT INTO "enderecos" ("cep", "cidade", "bairro", "logradouro", "complemento", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cep", "44444444"], ["cidade", "SSSDDSSDSD"], ["bairro", "ASDFASDF"], ["logradouro", "eujagsvlausad"], ["complemento", "asDFSEWFASF"], ["paciente_id", 8], ["created_at", "2023-06-19 20:35:30.905983"], ["updated_at", "2023-06-19 20:35:30.905983"]]
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+  [1m[36mTRANSACTION (37.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/pacientes_controller.rb:30:in `block in create'
+Redirected to http://0.0.0.0:3000/pacientes/8
+Completed 302 Found in 46ms (ActiveRecord: 38.3ms | Allocations: 4451)
+
+
+Started GET "/pacientes/8" for 127.0.0.1 at 2023-06-19 17:35:30 -0300
+Processing by PacientesController#show as TURBO_STREAM
+  Parameters: {"id"=>"8"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/pacientes_controller.rb:69:in `set_paciente'
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/show.html.erb within layouts/application
+  [1m[36mEndereco Load (0.3ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 8], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.1ms | Allocations: 1651)
+  Rendered pacientes/show.html.erb within layouts/application (Duration: 3.2ms | Allocations: 2190)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 4240)
+Completed 200 OK in 8ms (Views: 5.4ms | ActiveRecord: 0.4ms | Allocations: 5741)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:35:33 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 6], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.5ms | Allocations: 729)
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 7], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.8ms | Allocations: 731)
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 8], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.2ms | Allocations: 731)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 6.8ms | Allocations: 3363)
+  Rendered layout layouts/application.html.erb (Duration: 9.1ms | Allocations: 5421)
+Completed 200 OK in 10ms (Views: 9.2ms | ActiveRecord: 0.3ms | Allocations: 5712)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:36:32 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.4ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 6], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.6ms | Allocations: 1102)
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 7], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 1.9ms | Allocations: 732)
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 8], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 10.8ms | Allocations: 731)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 18.6ms | Allocations: 4227)
+  Rendered layout layouts/application.html.erb (Duration: 21.9ms | Allocations: 6666)
+Completed 200 OK in 30ms (Views: 27.3ms | ActiveRecord: 0.7ms | Allocations: 7565)
+
+
+Started GET "/pacientes" for 127.0.0.1 at 2023-06-19 17:36:52 -0300
+Processing by PacientesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pacientes/index.html.erb within layouts/application
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/pacientes/index.html.erb:6
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 6], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 5.4ms | Allocations: 729)
+  [1m[36mEndereco Load (0.2ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 7], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.1ms | Allocations: 731)
+  [1m[36mEndereco Load (0.1ms)[0m  [1m[34mSELECT "enderecos".* FROM "enderecos" WHERE "enderecos"."paciente_id" = ? LIMIT ?[0m  [["paciente_id", 8], ["LIMIT", 1]]
+  ↳ app/views/pacientes/_paciente.html.erb:25
+  Rendered pacientes/_paciente.html.erb (Duration: 2.2ms | Allocations: 731)
+  Rendered pacientes/index.html.erb within layouts/application (Duration: 26.0ms | Allocations: 3314)
+  Rendered layout layouts/application.html.erb (Duration: 28.0ms | Allocations: 5357)
+Completed 200 OK in 29ms (Views: 28.0ms | ActiveRecord: 0.5ms | Allocations: 5660)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:36:58 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 9.7ms | Allocations: 439)
+  Rendered layout layouts/application.html.erb (Duration: 18.2ms | Allocations: 2898)
+Completed 200 OK in 21ms (Views: 20.6ms | ActiveRecord: 0.0ms | Allocations: 3615)
+
+
+Started GET "/medicos/new" for 127.0.0.1 at 2023-06-19 17:36:59 -0300
+Processing by MedicosController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/new.html.erb within layouts/application
+  Rendered medicos/_form.html.erb (Duration: 2.9ms | Allocations: 2027)
+  Rendered medicos/new.html.erb within layouts/application (Duration: 5.0ms | Allocations: 2392)
+  Rendered layout layouts/application.html.erb (Duration: 19.8ms | Allocations: 4639)
+Completed 200 OK in 28ms (Views: 22.4ms | ActiveRecord: 0.0ms | Allocations: 8581)
+
+
+Started POST "/medicos" for 127.0.0.1 at 2023-06-19 17:37:36 -0300
+Processing by MedicosController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "medico"=>{"nome"=>"Gabriel", "cpf"=>"56987456321", "email"=>"@gmail", "especialidade"=>"Grande", "CRM"=>"26732ty32"}, "commit"=>"Create Medico"}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+  [1m[36mMedico Create (0.6ms)[0m  [1m[32mINSERT INTO "medicos" ("nome", "cpf", "email", "especialidade", "CRM", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Gabriel"], ["cpf", "56987456321"], ["email", "@gmail"], ["especialidade", "Grande"], ["CRM", "26732ty32"], ["created_at", "2023-06-19 20:37:36.680767"], ["updated_at", "2023-06-19 20:37:36.680767"]]
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (33.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/medicos_controller.rb:27:in `block in create'
+Redirected to http://0.0.0.0:3000/medicos/3
+Completed 302 Found in 40ms (ActiveRecord: 33.8ms | Allocations: 2897)
+
+
+Started GET "/medicos/3" for 127.0.0.1 at 2023-06-19 17:37:36 -0300
+Processing by MedicosController#show as TURBO_STREAM
+  Parameters: {"id"=>"3"}
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/medicos_controller.rb:63:in `set_medico'
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/show.html.erb within layouts/application
+  Rendered medicos/_medico.html.erb (Duration: 0.5ms | Allocations: 257)
+  [1m[36mConsultum Load (0.1ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta" WHERE "consulta"."medico_id" = ?[0m  [["medico_id", 3]]
+  ↳ app/views/medicos/show.html.erb:18
+  Rendered medicos/show.html.erb within layouts/application (Duration: 11.1ms | Allocations: 8145)
+  Rendered layout layouts/application.html.erb (Duration: 13.4ms | Allocations: 10300)
+Completed 200 OK in 16ms (Views: 13.8ms | ActiveRecord: 0.3ms | Allocations: 11978)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:37:40 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.2ms | Allocations: 136)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | Allocations: 2376)
+Completed 200 OK in 4ms (Views: 3.6ms | ActiveRecord: 0.0ms | Allocations: 2684)
+
+
+Started GET "/consulta/new" for 127.0.0.1 at 2023-06-19 17:37:42 -0300
+Processing by ConsultaController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/new.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/consulta/_form.html.erb:26
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes"[0m
+  ↳ app/views/consulta/_form.html.erb:31
+  Rendered consulta/_form.html.erb (Duration: 10.7ms | Allocations: 3399)
+  Rendered consulta/new.html.erb within layouts/application (Duration: 11.6ms | Allocations: 3765)
+  Rendered layout layouts/application.html.erb (Duration: 13.7ms | Allocations: 6015)
+Completed 200 OK in 17ms (Views: 15.1ms | ActiveRecord: 0.2ms | Allocations: 8135)
+
+
+Started POST "/consulta" for 127.0.0.1 at 2023-06-19 17:37:54 -0300
+Processing by ConsultaController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "consultum"=>{"data"=>"2023-06-21", "horario"=>"15:33", "medico_id"=>"3", "paciente_id"=>"8"}, "commit"=>"Create Consultum"}
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:24:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:25:in `create'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mConsultum Create (0.2ms)[0m  [1m[32mINSERT INTO "consulta" ("data", "horario", "medico_id", "paciente_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["data", "2023-06-21"], ["horario", "2000-01-01 15:33:00"], ["medico_id", 3], ["paciente_id", 8], ["created_at", "2023-06-19 20:37:54.291633"], ["updated_at", "2023-06-19 20:37:54.291633"]]
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+  [1m[36mTRANSACTION (36.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/consulta_controller.rb:28:in `create'
+Redirected to http://0.0.0.0:3000/consulta/2
+Completed 302 Found in 49ms (ActiveRecord: 37.3ms | Allocations: 8171)
+
+
+Started GET "/consulta/2" for 127.0.0.1 at 2023-06-19 17:37:54 -0300
+Processing by ConsultaController#show as TURBO_STREAM
+  Parameters: {"id"=>"2"}
+  [1m[36mConsultum Load (0.2ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta" WHERE "consulta"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/consulta_controller.rb:68:in `set_consultum'
+  Rendering layout layouts/application.html.erb
+  Rendering consulta/show.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/consulta/show.html.erb:14
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+  ↳ app/views/consulta/show.html.erb:19
+  Rendered consulta/show.html.erb within layouts/application (Duration: 4.2ms | Allocations: 2869)
+  Rendered layout layouts/application.html.erb (Duration: 6.2ms | Allocations: 4919)
+Completed 200 OK in 10ms (Views: 7.0ms | ActiveRecord: 0.3ms | Allocations: 6393)
+
+
+Started GET "/" for 127.0.0.1 at 2023-06-19 17:37:56 -0300
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 0.2ms | Allocations: 136)
+  Rendered layout layouts/application.html.erb (Duration: 2.8ms | Allocations: 2373)
+Completed 200 OK in 4ms (Views: 3.8ms | ActiveRecord: 0.0ms | Allocations: 2648)
+
+
+Started GET "/medicos" for 127.0.0.1 at 2023-06-19 17:37:58 -0300
+Processing by MedicosController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/index.html.erb within layouts/application
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/medicos/index.html.erb:6
+  Rendered medicos/_medico.html.erb (Duration: 0.1ms | Allocations: 34)
+  Rendered medicos/_medico.html.erb (Duration: 0.0ms | Allocations: 31)
+  Rendered medicos/_medico.html.erb (Duration: 0.2ms | Allocations: 31)
+  Rendered medicos/index.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1431)
+  Rendered layout layouts/application.html.erb (Duration: 6.4ms | Allocations: 3474)
+Completed 200 OK in 7ms (Views: 6.9ms | ActiveRecord: 0.1ms | Allocations: 3839)
+
+
+Started GET "/medicos/1" for 127.0.0.1 at 2023-06-19 17:38:01 -0300
+Processing by MedicosController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/medicos_controller.rb:63:in `set_medico'
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/show.html.erb within layouts/application
+  Rendered medicos/_medico.html.erb (Duration: 0.1ms | Allocations: 32)
+  [1m[36mConsultum Load (0.1ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta" WHERE "consulta"."medico_id" = ?[0m  [["medico_id", 1]]
+  ↳ app/views/medicos/show.html.erb:18
+  Rendered medicos/show.html.erb within layouts/application (Duration: 2.9ms | Allocations: 1140)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | Allocations: 3175)
+Completed 200 OK in 8ms (Views: 6.2ms | ActiveRecord: 0.2ms | Allocations: 3941)
+
+
+Started GET "/medicos" for 127.0.0.1 at 2023-06-19 17:38:07 -0300
+Processing by MedicosController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/index.html.erb within layouts/application
+  [1m[36mMedico Load (0.4ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos"[0m
+  ↳ app/views/medicos/index.html.erb:6
+  Rendered medicos/_medico.html.erb (Duration: 0.1ms | Allocations: 32)
+  Rendered medicos/_medico.html.erb (Duration: 0.1ms | Allocations: 31)
+  Rendered medicos/_medico.html.erb (Duration: 0.1ms | Allocations: 31)
+  Rendered medicos/index.html.erb within layouts/application (Duration: 3.6ms | Allocations: 1201)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | Allocations: 3244)
+Completed 200 OK in 11ms (Views: 10.6ms | ActiveRecord: 0.4ms | Allocations: 3529)
+
+
+Started GET "/medicos/2" for 127.0.0.1 at 2023-06-19 17:38:09 -0300
+Processing by MedicosController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mMedico Load (0.1ms)[0m  [1m[34mSELECT "medicos".* FROM "medicos" WHERE "medicos"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/medicos_controller.rb:63:in `set_medico'
+  Rendering layout layouts/application.html.erb
+  Rendering medicos/show.html.erb within layouts/application
+  Rendered medicos/_medico.html.erb (Duration: 0.1ms | Allocations: 32)
+  [1m[36mConsultum Load (0.1ms)[0m  [1m[34mSELECT "consulta".* FROM "consulta" WHERE "consulta"."medico_id" = ?[0m  [["medico_id", 2]]
+  ↳ app/views/medicos/show.html.erb:18
+  [1m[36mPaciente Load (0.1ms)[0m  [1m[34mSELECT "pacientes".* FROM "pacientes" WHERE "pacientes"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/views/medicos/show.html.erb:22
+  Rendered medicos/show.html.erb within layouts/application (Duration: 9.0ms | Allocations: 1841)
+  Rendered layout layouts/application.html.erb (Duration: 11.4ms | Allocations: 3879)
+Completed 200 OK in 15ms (Views: 11.9ms | ActiveRecord: 0.3ms | Allocations: 4644)
+
+
