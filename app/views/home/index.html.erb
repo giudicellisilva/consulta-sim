@@ -1,18 +1,39 @@
-<h1>Consulta Sim</h1>
 
-<h3>Paciente</h3>
-<%=link_to 'Cadastrar', new_paciente_path %>
-</br>
+  <header class="header">
+    <h1>Consulta Sim</h1>
+  </header>
 
-<%=link_to 'Listar', pacientes_path %>
+  <div class="div">
+    <h3 class="title_3">Paciente</h3>
+    <div class="link">
+      <%=link_to 'Cadastrar paciente', new_paciente_path %>
+      <img class="img--click" src="../../assets/click.png" />
+    </div>
 
-</br>
-<h3>Medicos</h3>
-<%=link_to 'Cadastrar', new_medico_path %>
-</br>
-<%=link_to 'Listar', medicos_path %>
+    <div class="link">
+      <%=link_to 'Listar pacientes', pacientes_path %>
+      <img class="img--click" src="../../assets/click.png" />
+    </div>
 
-<h3>Consultas</h3>
-<%=link_to 'Cadastrar', new_consultum_path %>
-</br>
-<%=link_to 'Listar', consulta_path %>
+    <h3 class="title_3">Medicos</h3>
+    <div class="link">
+      <%=link_to 'Cadastrar medicos', new_medico_path %>
+      <img class="img--click" src="../../assets/click.png" />
+    </div>
+
+    <div class="link">
+      <%=link_to 'Listar medicos', medicos_path %>
+      <img class="img--click" src="../../assets/click.png" />
+    </div>
+
+    <h3 class="title_3">Consultas</h3>
+    <div class="link">
+      <%=link_to 'Marcar consulta', new_consultum_path %>
+      <img class="img--click" src="../../assets/click.png" />
+    </div>
+
+    <div class="link">
+      <%=link_to 'Listar consultas', consulta_path %>
+      <img class="img--click" src="../../assets/click.png" />
+    </div>
+  </div>
