@@ -1,0 +1,42 @@
+.body{
+    margin: 0;
+}
+
+.header{
+    width: 100%;
+    background-color: #525FE1;
+    color: #fff4f4;
+    padding: 10px 0 10px 45px;
+}
+
+.header h1{
+    font-size: 32px;
+}
+
+.div{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.div p{
+    text-align: center;
+}
+
+.title_3{
+    color: #F86F03;
+    width: 200px;
+    border: 2px solid #F86F03;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.link{
+    padding: 10px;
+}
+.link a{
+    color:#525FE1;
+    font-size: 17px;
+}
