@@ -1,14 +1,32 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green; margin: 0"><%= notice %></p>
 
-<h1>Pacientes</h1>
+<header class="header">
+  <h1>Pacientes</h1>
+</header>
 
-<div id="pacientes">
-  <% @pacientes.each do |paciente| %>
-    <%= render paciente %>
-    <p>
-      <%= link_to "Show this paciente", paciente %>
-    </p>
-  <% end %>
+<div class="link">
+  <%= link_to "Página Inicial",root_path %>
+  <img class="img--click" src="../../assets/click.png" />
 </div>
 
-<%= link_to "New paciente", new_paciente_path %>
+<div class="link">
+  <%= link_to "New paciente", new_paciente_path %>
+  <img class="img--click" src="../../assets/click.png" />
+</div>
+
+<div id="pacientes" class="div">
+
+    <% @pacientes.each do |paciente| %>
+      <div>
+      <%= render paciente %>
+      <div class="link">
+        <%= link_to "Show this paciente", paciente %>
+        <img class="img--click" src="../../assets/click.png" />
+      </div>
+      </div>
+    <% end %>
+</div>
+
+
+
+

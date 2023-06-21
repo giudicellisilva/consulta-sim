@@ -31,8 +31,8 @@
     <%= form.text_field :email %>
   </div>
 
-  <div>
-    <h4> --Endereço--</h4>
+  <div class="div__form-endereco">
+    <h3 class="title_3--paciente"> --Endereço-- </h3>
 
     <%= form.fields_for :endereco do |endereco_form| %>
       Cidade  : <%= endereco_form.text_field :cidade %>
@@ -44,7 +44,7 @@
     <% end %>
   </div>
 
-  <div>
+  <div class="button">
     <%= form.submit %>
   </div>
 <% end %>
