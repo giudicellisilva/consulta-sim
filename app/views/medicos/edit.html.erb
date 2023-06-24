@@ -1,10 +1,21 @@
-<h1>Editing medico</h1>
+<header class="header">
+  <h1>Editar Médico</h1>
 
-<%= render "form", medico: @medico %>
-
-<br>
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+    <%= link_to "voltar para médicos", medicos_path %>
+  </div>
+</header>
 
 <div>
+
+</div>
+
+
+<div class="div--form">
+  <%= render "form", medico: @medico %>
+</div>
+<div class="link">
   <%= link_to "Show this medico", @medico %> |
-  <%= link_to "Back to medicos", medicos_path %>
+  <img class="img--click" src="../../assets/click.png" />
 </div>

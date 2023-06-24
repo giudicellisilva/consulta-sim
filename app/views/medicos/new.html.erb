@@ -1,9 +1,14 @@
-<h1>New medico</h1>
+<header class="header">
+  <h1>Novo médico</h1>
 
-<%= render "form", medico: @medico %>
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
 
-<br>
+    <%= link_to "Voltar para médicos", medicos_path %>
+  </div>
 
-<div>
-  <%= link_to "Back to medicos", medicos_path %>
+</header>
+
+<div class="div--form" style="margin-top: 20px">
+  <%= render "form", medico: @medico %>
 </div>

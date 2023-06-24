@@ -1,16 +1,26 @@
+<header class="header">
+  <h1>Medico</h1>
+
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+
+    <%= link_to "Voltar para médicos", medicos_path %>
+  </div>
+</header>
 <p style="color: green"><%= notice %></p>
 
-<%= render @medico %>
+<div class="div" style="flex-wrap: wrap">
+  <%= render @medico %>
+</div>
 
-<div>
-  <strong>Consultas Marcadas:</strong><br>
+<div class="div" style="flex-direction: column; gap: 0; margin-top: 20px">
+  <strong>--Consultas Marcadas--</strong><br>
   <table>
     <thead>
     <tr border="1">
       <th>Data</th>
       <th>Horario</th>
       <th>Paciente</th>
-      <th colspan="3"></th>
     </tr>
     </thead>
 
@@ -26,11 +36,11 @@
   </table>
 </div>
 
-<div>
-  <%= link_to "Edit this medico", edit_medico_path(@medico) %> |
-  <%= link_to "Back to medicos", medicos_path %>
-
-  <%= link_to "Página Inicial",root_path %>
+<div class="div">
+  <div class="link">
+    <%= link_to "Edit this medico", edit_medico_path(@medico) %> |
+    <img class="img--click" src="../../assets/click.png" />
+  </div>
 
   <%= button_to "Destroy this medico", @medico, method: :delete %>
 </div>

@@ -1,14 +1,24 @@
+<header class="header">
+  <h1>Medicos</h1>
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+
+    <%= link_to "Novo médico", new_medico_path %>
+  </div>
+</header>
+
 <p style="color: green"><%= notice %></p>
 
-<h1>Medicos</h1>
-
-<div id="medicos">
+<div id="medicos" class="div">
   <% @medicos.each do |medico| %>
-    <%= render medico %>
-    <p>
-      <%= link_to "Show this medico", medico %>
-    </p>
+    <div>
+        <%= render medico %>
+        <div class="link">
+          <%= link_to "Show this medico", medico %>
+          <img class="img--click" src="../../assets/click.png" />
+        </div>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New medico", new_medico_path %>
+

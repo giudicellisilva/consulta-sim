@@ -1,6 +1,6 @@
 <%= form_with(model: medico) do |form| %>
   <% if medico.errors.any? %>
-    <div style="color: red">
+    <div style="color: red" >
       <h2><%= pluralize(medico.errors.count, "error") %> prohibited this medico from being saved:</h2>
 
       <ul>
@@ -36,7 +36,7 @@
     <%= form.text_field :CRM %>
   </div>
 
-  <div>
+  <div class="button"  style="margin-top: 20px">
     <%= form.submit %>
   </div>
 <% end %>
