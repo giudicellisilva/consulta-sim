@@ -140,3 +140,22 @@
     color:#525FE1;
     font-size: 17px;
 }
+
+.div table{
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.div table, th, td {
+    border: 1px solid black;
+}
+
+.div table th, td{
+    padding: 10px;
+    text-align: center;
+    width: 120px;
+}
+
+.div table th{
+    font-weight: bold;
+}
