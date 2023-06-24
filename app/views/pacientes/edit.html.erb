@@ -1,23 +1,19 @@
 <header class="header">
   <h1>Editar Paciente</h1>
+
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+    <%= link_to "Voltar para pacientes", pacientes_path %>
+  </div>
 </header>
+
+<div class="div--form">
+  <%= render "form", paciente: @paciente %>
+</div>
 
 <div class="link">
   <%= link_to "Ver este paciente", @paciente %> |
   <img class="img--click" src="../../assets/click.png" />
 </div>
 
-<div class="link">
-  <%= link_to "Voltar para pacientes", pacientes_path %>
-  <img class="img--click" src="../../assets/click.png" />
-</div>
-
-<div class="link">
-  <%= link_to "Página Inicial",root_path %>
-  <img class="img--click" src="../../assets/click.png" />
-</div>
-
-<div class="div--form">
-  <%= render "form", paciente: @paciente %>
-</div>
 

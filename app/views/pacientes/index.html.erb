@@ -2,17 +2,13 @@
 
 <header class="header">
   <h1>Pacientes</h1>
+
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+
+    <%= link_to "New paciente", new_paciente_path %>
+  </div>
 </header>
-
-<div class="link">
-  <%= link_to "Página Inicial",root_path %>
-  <img class="img--click" src="../../assets/click.png" />
-</div>
-
-<div class="link">
-  <%= link_to "New paciente", new_paciente_path %>
-  <img class="img--click" src="../../assets/click.png" />
-</div>
 
 <div id="pacientes" class="div">
 
