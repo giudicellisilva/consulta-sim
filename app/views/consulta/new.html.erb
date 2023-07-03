@@ -1,9 +1,13 @@
-<h1>New consultum</h1>
+<header class="header">
+  <h1>Nova Consulta</h1>
 
-<%= render "form", consultum: @consultum %>
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
 
-<br>
+    <%= link_to "Voltar para consulta", consulta_path %>
+  </div>
+</header>
 
-<div>
-  <%= link_to "Back to consulta", consulta_path %>
+<div class="div--form">
+  <%= render "form", consultum: @consultum %>
 </div>

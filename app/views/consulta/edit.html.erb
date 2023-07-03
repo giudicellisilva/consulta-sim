@@ -1,10 +1,17 @@
-<h1>Editing consultum</h1>
+<header class="header">
+  <h1>Editar Consulta</h1>
 
-<%= render "form", consultum: @consultum %>
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+    <%= link_to "Voltar para consulta", consulta_path %>
+  </div>
+</header>
 
-<br>
+<div class="div--form">
+  <%= render "form", consultum: @consultum %>
+</div>
 
-<div>
-  <%= link_to "Show this consultum", @consultum %> |
-  <%= link_to "Back to consulta", consulta_path %>
+<div class="link">
+  <%= link_to "Show this consultum", @consultum %>
+  <img class="img--click" src="../../assets/click.png" />
 </div>

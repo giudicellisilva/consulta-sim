@@ -1,29 +1,48 @@
+<header class="header">
+  <h1>Consulta</h1>
+
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+
+    <%= link_to "Voltar para consulta", consulta_path %>
+  </div>
+</header>
+
 <p style="color: green"><%= notice %></p>
 
-<p>
-  <strong>Data:</strong>
-  <%= @consultum.data %>
-</p>
+<div class="div" style="flex-direction: column; gap: 0">
+  <p>
+    <strong>Data:</strong>
+    <%= @consultum.data %>
+  </p>
 
-<p>
-  <strong>Horario:</strong>
-  <%= @consultum.horario.strftime("%H:%M") %>
-</p>
+  <p>
+    <strong>Horario:</strong>
+    <%= @consultum.horario.strftime("%H:%M") %>
+  </p>
 
-<strong>Medico:</strong>
-<%= @consultum.medico.nome %>
-</p>
+  <p>
+  <strong>Medico:</strong>
+  <%= @consultum.medico.nome %>
+  </p>
 
-<p>
-  <strong>Paciente:</strong>
-  <%= @consultum.paciente.nome %>
-</p>
+  <p>
+    <strong>Paciente:</strong>
+    <%= @consultum.paciente.nome %>
+  </p>
 
-<div>
-  <%= link_to "Edit this consultum", edit_consultum_path(@consultum) %> |
-  <%= link_to "Back to consulta", consulta_path %>
-
-  <%= link_to "Página Inicial",root_path %>
+<div class="div">
+  <div class="link">
+    <%= link_to "Edit this consultum", edit_consultum_path(@consultum) %>
+    <img class="img--click" src="../../assets/click.png" />
+  </div>
 
   <%= button_to "Destroy this consultum", @consultum, method: :delete %>
 </div>
+
+</div>
+
+
+
+
+

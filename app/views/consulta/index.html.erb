@@ -1,14 +1,25 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green; margin: 0"><%= notice %></p>
 
-<h1>Consulta</h1>
+<header class="header">
+  <h1>Consultas</h1>
 
-<div id="consulta">
+  <div class="header__links">
+    <%= link_to "Página Inicial",root_path %>
+
+    <%= link_to "Nova consulta", new_consultum_path %>
+  </div>
+</header>
+
+<div id="consulta" class="div">
   <% @consulta.each do |consultum| %>
-    <%= render consultum %>
-    <p>
-      <%= link_to "Show this consultum", consultum %>
-    </p>
+    <div>
+      <%= render consultum %>
+      <div class="link">
+        <%= link_to "Show this consultum", consultum %>
+        <img class="img--click" src="../../assets/click.png" />
+      </div>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New consultum", new_consultum_path %>
+

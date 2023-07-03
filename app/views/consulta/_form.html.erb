@@ -31,7 +31,7 @@
     <%= form.collection_select(:paciente_id, Paciente.all, :id, :nome,{:selected => @consultum.paciente_id})%>
   </div>
 
-  <div>
+  <div class="button" style="margin-top: 20px">
     <%= form.submit %>
   </div>
 <% end %>
