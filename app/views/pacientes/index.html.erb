@@ -14,11 +14,11 @@
 
     <% @pacientes.each do |paciente| %>
       <div>
-      <%= render paciente %>
-      <div class="link">
-        <%= link_to "Show this paciente", paciente %>
-        <img class="img--click" src="../../assets/click.png" />
-      </div>
+        <%= render paciente %>
+        <div class="link">
+          <%= link_to "Show this paciente", paciente %>
+          <img class="img--click" src="../../assets/click.png" />
+        </div>
       </div>
     <% end %>
 </div>

@@ -9,6 +9,11 @@ class Medico < ApplicationRecord
             length: {is: 11, message: 'CPF precisa conter 11 dígitos'},
             format: {with: /\A\d+\z/, message: 'Deve ter apenas números'}
 
+  validates :email, format: {with: URI:: MailTo::EMAIL_REGEXP}
+
+
   validates :CRM, presence: {message: 'CRM obrigatório'}
+
+
 
 end
