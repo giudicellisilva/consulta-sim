@@ -16,7 +16,7 @@ class ConsultumTest < ActiveSupport::TestCase
 
     medico = Medico.new nome: 'Dayane de Noronha',
                         cpf:'41879777088',
-                        email:'dayaneN@gmail.com',
+                        email:'dayane@gmail.com',
                         especialidade:'Clinico Geral',
                         CRM:'123857PE'
     assert medico.save
