@@ -19,4 +19,13 @@ class MedicoTest < ActiveSupport::TestCase
     assert_not medico.save
   end
 
+  test 'Criando medico sem crm' do
+    medico = Medico.new nome: 'Pedro Paes',
+                        cpf:'15138276030',
+                        email:'pedro@gmail.com',
+                        especialidade:'Especialista',
+                        CRM:''
+    assert_not medico.save
+  end
+
 end
